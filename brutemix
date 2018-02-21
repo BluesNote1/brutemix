@@ -1,0 +1,65 @@
+#!/bin/bash
+### 
+# brutemix:
+#
+# Reads all words from file (seperated by new lines)
+# and generates mixed 2-words/3-words dictionary.
+#
+###
+
+## Functions
+
+make_2 () {
+    #echo -en "\n [#] Making all possible 2-word combinations from '$2'\n\n"
+    for word_a in "${words[@]}"; do
+        for word_b in "${words[@]}"; do
+            echo -en "${word_a}${word_b}\n"
+        done
+    done
+    return 0
+}
+
+make_3 () {
+    #echo -en "\n [#] Making all possible 3-word combinations from '$2'\n\n"
+    for word_a in "${words[@]}"; do
+        for word_b in "${words[@]}"; do
+            for word_c in "${words[@]}"; do
+                echo -en "${word_a}${word_b}${word_c}\n"
+            done
+        done
+    done
+    return 0
+}
+
+## Validate arguments and file 
+
+# Checks valid arguments
+if [ -z "$1" ] || [ -z "$2" ] || ! echo -en "$1" | egrep '^\-2$|^\-3$' &> /dev/null; then
+    echo -en "\nUSAGE:\n\n  Reads all words from file (seperated by new lines)\n  and generates all possible 2-words/3-word combinations to stdout\n\nSYNTAX:\n\n  $(basename "$0") [-2 | -3] wordsfile.txt\n\n"
+    exit 1
+fi
+
+# Checks if file exist 
+if [ ! -f "$2" ]; then
+    echo -en "\n [!] File doesn't exist\n\n"
+    exit -1
+fi
+
+# Checks if file is seperated by new lines
+if [[ $(cat "./$2" 2> /dev/null | wc -l) < 1 ]]; then
+    echo -en "\n [!] File text isn't seperated by new lines\n\n"
+    exit -1
+fi
+
+## Reads file and make 2-words/3-words combinations
+
+words=($(cat "./$2"))
+
+if echo -en "$1" | grep '2' &> /dev/null; then 
+    make_2
+elif echo -en "$1" | grep '3' &> /dev/null; then
+    make_3
+fi
+
+exit 0
+
