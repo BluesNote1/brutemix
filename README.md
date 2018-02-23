@@ -11,7 +11,7 @@ USAGE:
 
 SYNTAX:
 
-  brutemix [-2 | -3] wordsfile.txt
+  brutemix -2 | -3 wordsfile.txt
 
 ## Example
 
