@@ -7,7 +7,7 @@ and generates mixed 2-words/3-words dictionary.
 USAGE:
 
   Reads all words from file (seperated by new lines)
-  and generates all possible 2-words/3-word combinations to stdout
+  and generates all possible 2-words/3-word permutations to stdout
 
 SYNTAX:
 
